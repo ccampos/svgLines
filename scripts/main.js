@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         circleCombos = [],
         lines = [],
         maxCoord = 450,
-        numberOfPoints = 160;
+        numberOfPoints = 30;
 
-    for (var h = 1; h <= numberOfPoints; h = h + 1) {
+    for (var h = 1; h <= numberOfPoints * 2; h = h + 1) {
         coords.push(Math.floor(Math.random() * maxCoord));
     }
 
