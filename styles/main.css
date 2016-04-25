@@ -1,8 +1,3 @@
-svg {
-    width: 600px;
-    height: 500px;
-}
-
 line {
     stroke: rgb(0,0,255);
     stroke-width: 2;
@@ -10,6 +5,7 @@ line {
 
 circle {
     fill: rgb(0,0,255);
+    r: 6;
 }
 
 text {
