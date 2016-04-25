@@ -6,13 +6,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         circle3,
         line1,
         line2,
-        coords = [30,30,450,450,350,250,245,167,123,345,445,56],
+        coords = [],
         circleCombos = [],
         lines = [],
-        max;
+        maxCoord = 450,
+        numberOfPoints = 160;
 
-    max = getMaxOfArray(coords) + 100;
-    svg.style('width',max).style('height',max);
+    for (var h = 1; h <= numberOfPoints; h = h + 1) {
+        coords.push(Math.floor(Math.random() * maxCoord));
+    }
+
+    svg.style('width',maxCoord).style('height',maxCoord);
 
     addCircleCombos();
     addLines();

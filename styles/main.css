@@ -1,3 +1,6 @@
+svg {
+    padding: 100px;
+}
 line {
     stroke: rgb(0,0,255);
     stroke-width: 2;
