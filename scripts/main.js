@@ -10,16 +10,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
         circleCombos = [],
         lines = [],
         maxCoord = 450,
-        numberOfPoints = 30;
+        numberOfPoints = 2;
 
-    for (var h = 1; h <= numberOfPoints * 2; h = h + 1) {
-        coords.push(Math.floor(Math.random() * maxCoord));
-    }
-
+    //for (var h = 1; h <= numberOfPoints * 2; h = h + 1) {
+        //coords.push(Math.floor(Math.random() * maxCoord));
+        coords.push(197);
+        coords.push(368);
+        coords.push(431);
+        coords.push(302);
+    //}
     svg.style('width',maxCoord).style('height',maxCoord);
 
     addCircleCombos();
     addLines();
+    getTwoPointDistance();
+
+    function getTwoPointDistance(point1Coords, point2Coords) {
+        var a = coords[2] - coords[0],
+            b = coords[3] - coords[1],
+            c;
+
+        console.log(Math.abs(a));
+        console.log(Math.abs(b));
+        console.log(c = Math.pow(Math.pow(a,2) + Math.pow(b,2),0.5));
+
+        return c;
+    }
 
     function getMaxOfArray(numArray) {
           return Math.max.apply(null, numArray);
