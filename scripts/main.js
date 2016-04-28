@@ -10,32 +10,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
         circleCombos = [],
         lines = [],
         maxCoord = 450,
-        numberOfPoints = 2;
+        numberOfPoints = 9,
+        twoPointDistanceObj = {};
 
-    //for (var h = 1; h <= numberOfPoints * 2; h = h + 1) {
-        //coords.push(Math.floor(Math.random() * maxCoord));
-        coords.push(197);
-        coords.push(368);
-        coords.push(431);
-        coords.push(302);
-    //}
+    for (var h = 1; h <= numberOfPoints * 2; h = h + 1) {
+        coords.push(Math.floor(Math.random() * maxCoord));
+    }
+
     svg.style('width',maxCoord).style('height',maxCoord);
 
     addCircleCombos();
     addLines();
-    getTwoPointDistance();
-
-    function getTwoPointDistance(point1Coords, point2Coords) {
-        var a = coords[2] - coords[0],
-            b = coords[3] - coords[1],
-            c;
-
-        console.log(Math.abs(a));
-        console.log(Math.abs(b));
-        console.log(c = Math.pow(Math.pow(a,2) + Math.pow(b,2),0.5));
-
-        return c;
-    }
 
     function getMaxOfArray(numArray) {
           return Math.max.apply(null, numArray);
@@ -63,7 +48,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
         } else if (_obj.el === 'line') {
-            return _el.attr('x1',_obj.x1).attr('y1',_obj.y1).attr('x2',_obj.x2).attr('y2',_obj.y2);
+            return {
+                el: _el.attr('x1',_obj.x1).attr('y1',_obj.y1).attr('x2',_obj.x2).attr('y2',_obj.y2),
+                text: getTwoPointDistance(_obj)
+            }
         }
+    }
+
+    function getTwoPointDistance(_coordsObj) {
+        var a = Math.abs(_coordsObj.x2 - _coordsObj.x1),
+            b = Math.abs(_coordsObj.y2 - _coordsObj.y1);
+
+            createDistanceText(_coordsObj, {
+                eastwest: a,
+                northsouth: b,
+                distance: Math.pow(Math.pow(a,2) + Math.pow(b,2),0.5)
+            });
+    }
+
+    function createDistanceText(_coordsObj, _triangleDimensions) {
+        var x, y, xMin, yMin;
+
+        xMin = Math.min(_coordsObj.x1, _coordsObj.x2);
+        yMin = Math.min(_coordsObj.y1, _coordsObj.y2);
+
+        x = xMin + (_triangleDimensions.eastwest / 2);
+        y = yMin + (_triangleDimensions.northsouth / 2);
+
+        return svg.append('text').attr('x',x + 15).attr('y',y).text(_triangleDimensions.distance);
     }
 });
