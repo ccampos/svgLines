@@ -13,5 +13,10 @@ circle {
 
 text {
     font-family: Verdana;
+    font-size: 8px;
+}
+
+.distance {
     font-size: 14px;
+    font-style: italic;
 }

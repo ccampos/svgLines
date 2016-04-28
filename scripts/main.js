@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         coords = [],
         circleCombos = [],
         lines = [],
+        distances = [],
         maxCoord = 450,
         numberOfPoints = 9,
         twoPointDistanceObj = {};
@@ -57,24 +58,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function getTwoPointDistance(_coordsObj) {
         var a = Math.abs(_coordsObj.x2 - _coordsObj.x1),
-            b = Math.abs(_coordsObj.y2 - _coordsObj.y1);
+            b = Math.abs(_coordsObj.y2 - _coordsObj.y1),
+            _distance;
+
+            _distance = Math.pow(Math.pow(a,2) + Math.pow(b,2),0.5);
+
+            distances.push(_distance);
 
             createDistanceText(_coordsObj, {
                 eastwest: a,
                 northsouth: b,
-                distance: Math.pow(Math.pow(a,2) + Math.pow(b,2),0.5)
+                distance: _distance
             });
     }
 
     function createDistanceText(_coordsObj, _triangleDimensions) {
-        var x, y, xMin, yMin;
+        var x, y, xMin, yMin, offsetX;
 
         xMin = Math.min(_coordsObj.x1, _coordsObj.x2);
         yMin = Math.min(_coordsObj.y1, _coordsObj.y2);
+        offsetX = 10;
 
         x = xMin + (_triangleDimensions.eastwest / 2);
         y = yMin + (_triangleDimensions.northsouth / 2);
 
-        return svg.append('text').attr('x',x + 15).attr('y',y).text(_triangleDimensions.distance);
+        return svg.append('text').attr('class', 'distance').attr('x',x + offsetX).attr('y',y).text(Math.round(_triangleDimensions.distance));
     }
+    console.log(distances);
 });
